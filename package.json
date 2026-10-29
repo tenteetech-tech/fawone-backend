@@ -1,0 +1,23 @@
+{
+  "name": "fawone-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API FAWONE Community — Node.js + SQLite",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning src/server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch src/server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test",
+    "create-admin": "node --disable-warning=ExperimentalWarning scripts/create-admin.js",
+    "seed:demo": "node --disable-warning=ExperimentalWarning scripts/seed-demo.js",
+    "seed:demo:force": "node --disable-warning=ExperimentalWarning scripts/seed-demo.js --force",
+    "whatsapp:groups": "node --disable-warning=ExperimentalWarning scripts/whatsapp-groups.js"
+  },
+  "engines": {
+    "node": ">=20.12 <25"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.7.0"
+  }
+}
