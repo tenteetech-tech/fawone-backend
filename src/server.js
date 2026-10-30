@@ -34,6 +34,35 @@ export const server = http.createServer(async (req, res) => {
       res.writeHead(cors ? 204 : 403);
       return res.end();
     }
+    if (req.method === "GET" && url.pathname === "/") {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      return res.end(`<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAWONE — API</title>
+    <style>
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f3f6f4; color: #18352b; font: 16px/1.6 system-ui, sans-serif; }
+      main { box-sizing: border-box; width: min(90%, 620px); padding: 48px; border-radius: 20px; background: white; box-shadow: 0 16px 48px #18352b14; }
+      h1 { margin: 0 0 8px; color: #176b4d; font-size: 2rem; }
+      p { margin: 12px 0; }
+      code { padding: 3px 7px; border-radius: 5px; background: #edf4f0; }
+      .status { color: #176b4d; font-weight: 700; }
+      @media (max-width: 480px) { main { padding: 30px 24px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Bienvenue sur l’API FAWONE</h1>
+      <p class="status">Le backend fonctionne correctement.</p>
+      <p>Cette API fournit les services de FAWONE Community : membres, projets, dons, actualités et événements.</p>
+      <p>Les routes de l’API sont disponibles sous <code>/api/</code>.</p>
+      <p>État du serveur : <a href="/api/health"><code>/api/health</code></a></p>
+    </main>
+  </body>
+</html>`);
+    }
     if (!url.pathname.startsWith("/api/")) return sendJson(res, 404, { error: "Introuvable." });
     const found = router.match(req.method, url.pathname);
     if (!found) return sendJson(res, 404, { error: "Route inconnue." });

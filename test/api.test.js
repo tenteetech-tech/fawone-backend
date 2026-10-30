@@ -49,6 +49,15 @@ function client() {
   };
 }
 
+test("page d'accueil : présente l'API FAWONE dans le navigateur", async () => {
+  const res = await fetch(base + "/");
+  const html = await res.text();
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type"), /text\/html/);
+  assert.match(html, /Bienvenue sur l’API FAWONE/);
+  assert.match(html, /href="\/api\/health"/);
+});
+
 test("connexion : mauvais mot de passe refusé, bon accepté, session active", async () => {
   const c = client();
   assert.equal((await c.login("aicha.ndive@example.com", "mauvais")).status, 401);

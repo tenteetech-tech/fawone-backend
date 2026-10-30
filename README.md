@@ -2,6 +2,21 @@
 
 API REST de FAWONE Community : serveur `node:http`, base SQLite, cryptographie `node:crypto`.
 
+## Présentation du backend
+
+Ce dépôt contient le serveur qui alimente FAWONE Community. Il fournit les données et les opérations utilisées par le frontend et l’espace d’administration ; il ne contient pas l’interface web.
+
+Le backend permet notamment de :
+
+- gérer les comptes administrateurs, les sessions, les invitations et les droits par rôle et par branche ;
+- consulter et administrer les branches, les membres, les projets, les actualités et les événements ;
+- enregistrer les dons, suivre leur statut et calculer les montants collectés ;
+- envoyer des notifications dans un groupe WhatsApp et traiter les paiements Mobile Money via Campay (MTN MoMo et Orange Money).
+
+L’API est développée en JavaScript avec Node.js et `node:http`. Elle expose des routes JSON sous `/api/`, vérifie les droits d’accès et stocke ses données dans SQLite (`data/fawone.db` par défaut). Le moteur SQLite intégré à Node.js est utilisé lorsqu’il est disponible ; `better-sqlite3` sert de solution de remplacement. Campay et WhatsApp sont des intégrations configurables : les paiements en ligne nécessitent des identifiants Campay, et les notifications WhatsApp nécessitent la configuration d’un fournisseur.
+
+Les principales parties du code sont `src/routes/` (endpoints), `src/auth/` (sessions et permissions), `src/db/` (schéma et accès SQLite), `src/services/` (paiements et notifications), et `src/lib/` (HTTP et sécurité). Le point d’entrée est `src/server.js`. Pour démarrer en développement : `npm install`, puis `npm run dev`. Les options de configuration et les procédures d’installation sont détaillées ci-dessous.
+
 ## Prérequis
 
 - **Node.js 22.13+ (recommandé)** : SQLite est intégré à Node (`node:sqlite`), rien à installer.
